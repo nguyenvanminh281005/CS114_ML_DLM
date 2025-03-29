@@ -13,3 +13,5 @@ test node bằng cách
 npm -v
 npx -v
 node -v
+
+test thêm với yarn nè 
