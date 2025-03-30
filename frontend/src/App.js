@@ -3,7 +3,8 @@ import axios from 'axios';
 
 function App() {
   // Khởi tạo 22 ô input thay vì 4
-  const [features, setFeatures] = useState(Array(22).fill(''));
+  const num = 8;
+  const [features, setFeatures] = useState(Array(num).fill(''));
   const [result, setResult] = useState('');
 
   const handleChange = (index, value) => {
@@ -15,7 +16,7 @@ function App() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/predict', {
-        features: features.map(Number), // Chuyển input thành số
+        features: features.map(Number),
       });
       setResult(response.data.prediction);
     } catch (error) {
@@ -27,7 +28,7 @@ function App() {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h2>Parkinson's Prediction</h2>
-      <p>Nhập 22 giá trị đầu vào:</p>
+      <p>Nhập {num} giá trị đầu vào:</p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', justifyContent: 'center', maxWidth: '400px', margin: 'auto' }}>
         {features.map((feature, index) => (
           <div key={index}>
