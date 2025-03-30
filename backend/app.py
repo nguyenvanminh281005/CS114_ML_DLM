@@ -11,8 +11,8 @@ app = Flask(__name__)
 CORS(app)  # Cho phép truy cập từ React
 
 # Load model
-model = joblib.load('E:/KHTN2023/CS114/Project_CS114/backend/model/parkinsons_xgboost_model.pkl')
-
+model = joblib.load('E:/KHTN2023/CS114/CS114_ML_DLM/CS114_ML_DLM/backend/model/parkinsons_xgboost_model.pkl')
+scaler = joblib.load('E:/KHTN2023/CS114/CS114_ML_DLM/CS114_ML_DLM/backend/model/scaler.pkl')
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -21,7 +21,8 @@ def predict():
 
         features = np.array([data['features']])
         print("Processed Features:", features)  # In dữ liệu đầu vào model
-
+        features = scaler.transform(features)
+        
         prediction = model.predict(features)[0]
         result = "Parkinson's Detected" if prediction == 1 else "Healthy"
         
