@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  // Khởi tạo 22 ô input thay vì 4
   const num = 8;
   const [features, setFeatures] = useState(Array(num).fill(''));
+  const [featureNames, setFeatureNames] = useState(Array(num).fill(`F`));
   const [result, setResult] = useState('');
+
+  useEffect(() => {
+    fetch("/dap.csv") // Thay đường dẫn file CSV của bạn
+      .then((response) => response.text())
+      .then((text) => {
+        const rows = text.trim().split("\n").map(row => row.split(","));
+        if (rows.length > 1) {
+          setFeatureNames(rows[0].slice(0)); // Lấy dòng đầu làm tên feature, giới hạn số lượng
+        }
+      })
+      .catch((error) => console.error("Error loading features:", error));
+  }, []);
 
   const handleChange = (index, value) => {
     const newFeatures = [...features];
@@ -32,7 +44,7 @@ function App() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', justifyContent: 'center', maxWidth: '400px', margin: 'auto' }}>
         {features.map((feature, index) => (
           <div key={index}>
-            <label>F{index + 1}: </label>
+            <label>{featureNames[index] || `F${index + 1}`  } </label>
             <input
               type="number"
               value={feature}
