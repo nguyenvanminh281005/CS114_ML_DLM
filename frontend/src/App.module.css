@@ -14,7 +14,7 @@ body {
     max-width: 600px;
     margin: 40px auto;
     padding: 30px;
-    background-color: rgba(214, 180, 191, 0.9);
+    background-color: rgba(166, 206, 207, 0.9);
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
@@ -24,7 +24,7 @@ body {
   
   /* Header Styles */
   .container h2 {
-    color: #2c3e50;
+    color: #1b67b3;
     margin-bottom: 25px;
     font-weight: 600;
     text-align: center;
@@ -62,7 +62,7 @@ body {
   
   .inputGroup label {
     font-size: 14px;
-    color: #495057;
+    color: #0d0324;
     margin-bottom: 8px;
     font-weight: 500;
     width: 100%;  /* Đảm bảo label chiếm toàn bộ chiều rộng */

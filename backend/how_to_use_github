@@ -1,0 +1,23 @@
+clone về máy git trước 
+
+sau đó git remote add origin <link repository> (để thêm link của repository vào máy git)
+
+sau đó git init để kết nối git
+
+git branch để check xem mình ở branch nào
+
+
+rồi git -b <branch_name> để tạo ra branch mới
+
+tiếp theo git add . hoặc là git add <tên file> để thêm file 
+
+tiếp tục là git commit -m "<message>" để thêm comment vào file
+
+cuối cùng là git push -u origin <tên branch của mình - branch_name ở trên á> lên 
+
+từ lần 2 push lên thì có cách push nhanh là chạy lệnh trên cmd 
+
+cách set up:
+- win + X mở cmd với quyền admin lên 
+- tiếp theo tạo file tên là git-auto-push.ps1 trong folder nào đó 
+tiếp theo chạy lệnh terminal là ./backend/git-auto-push.ps1 chỗ này thay bằng đường dẫn (hệ ralative nha)
