@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from './App.module.css';
 
 function App() {
   const num = 8;
@@ -8,12 +9,12 @@ function App() {
   const [result, setResult] = useState('');
 
   useEffect(() => {
-    fetch("/dap.csv") // Thay đường dẫn file CSV của bạn
+    fetch("/dap.csv")
       .then((response) => response.text())
       .then((text) => {
         const rows = text.trim().split("\n").map(row => row.split(","));
         if (rows.length > 1) {
-          setFeatureNames(rows[0].slice(0)); // Lấy dòng đầu làm tên feature, giới hạn số lượng
+          setFeatureNames(rows[0].slice(0));
         }
       })
       .catch((error) => console.error("Error loading features:", error));
@@ -38,13 +39,13 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div className={styles.container}>
       <h2>Parkinson's Prediction</h2>
       <p>Nhập {num} giá trị đầu vào:</p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', justifyContent: 'center', maxWidth: '400px', margin: 'auto' }}>
+      <div className={styles.grid}>
         {features.map((feature, index) => (
-          <div key={index}>
-            <label>{featureNames[index] || `F${index + 1}`  } </label>
+          <div key={index} className={styles.inputGroup}>
+            <label>{featureNames[index] || `F${index + 1}`}</label>
             <input
               type="number"
               value={feature}
@@ -53,8 +54,8 @@ function App() {
           </div>
         ))}
       </div>
-      <button onClick={handleSubmit} style={{ marginTop: '20px' }}>Predict</button>
-      {result && <h3>Prediction: {result}</h3>}
+      <button className={styles.button} onClick={handleSubmit}>Predict</button>
+      {result && <h3 className={styles.result}>Prediction: {result}</h3>}
     </div>
   );
 }
