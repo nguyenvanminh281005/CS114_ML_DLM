@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import numpy as np
+# Thêm đoạn này ở đầu file hoặc ngay trước phần sử dụng scaler
+import warnings
 
 app = Flask(__name__)
 CORS(app)  # Cho phép truy cập từ React
@@ -19,9 +21,15 @@ def predict():
         data = request.get_json()
         print("Received Data:", data)  # In dữ liệu nhận được
 
+        # Đoạn code dự đoán
+
+            
         features = np.array([data['features']])
         print("Processed Features:", features)  # In dữ liệu đầu vào model
-        features = scaler.transform(features)
+        
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            features = scaler.transform(features)
         
         prediction = model.predict(features)[0]
         result = "Parkinson's Detected" if prediction == 1 else "Healthy"
