@@ -1,146 +1,325 @@
-/* Background Styling */
-body {
-    padding: 20px;
-    background-image: url('../public/background.jpg'); /* Đường dẫn tới ảnh của bạn */
-    background-size: cover; /* Làm cho ảnh phủ đầy màn hình */
-    background-position: center center; /* Căn giữa ảnh */
-    background-repeat: no-repeat; /* Không lặp lại ảnh */
-    height: 100vh; /* Đảm bảo background phủ toàn bộ chiều cao của trang */
-    margin: 0; /* Xóa margin mặc định */
-  }
-  
-  /* Main Container */
-  .container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: rgba(166, 206, 207, 0.9);
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  /* Header Styles */
-  .container h2 {
-    color: #1b67b3;
-    margin-bottom: 25px;
-    font-weight: 600;
-    text-align: center;
-    position: relative;
-  }
-  
-  .container h2:after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #007bff, #00c6ff);
-    margin: 12px auto 0;
-    border-radius: 2px;
-  }
-  
-  /* Tăng khoảng cách trong grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;  /* Tăng gap từ 18px lên 25px */
-    margin: 25px auto;
-    max-width: 600px;  /* Tăng max-width để có thêm không gian */
-  }
-  
-/* Input Groups */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 15px;
+}
+
+.header h1 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tab, .activeTab {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tab {
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+.activeTab {
+  background-color: #007bff;
+  color: white;
+}
+
+.instructions {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
 .inputGroup {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.predictButton, .resetButton {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.predictButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.predictButton:hover {
+  background-color: #0069d9;
+}
+
+.predictButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.resetButton {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.resetButton:hover {
+  background-color: #e2e6ea;
+}
+
+.resultBox {
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s;
+}
+
+.positive {
+  background-color: #ffecec;
+  border-left: 5px solid #dc3545;
+}
+
+.negative {
+  background-color: #ecffec;
+  border-left: 5px solid #28a745;
+}
+
+.resultText {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.resultDescription {
+  color: #555;
+  font-size: 16px;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* History Panel Styles */
+.historyPanel {
+  animation: fadeIn 0.5s;
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.clearButton {
+  padding: 8px 15px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clearButton:hover {
+  background-color: #e2e6ea;
+}
+
+.emptyHistory {
+  text-align: center;
+  color: #6c757d;
+  padding: 40px 0;
+  border: 2px dashed #dee2e6;
+  border-radius: 10px;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.historyItem {
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s;
+}
+
+.historyPositive {
+  background-color: #ffecec;
+  border-left: 5px solid #dc3545;
+}
+
+.historyNegative {
+  background-color: #ecffec;
+  border-left: 5px solid #28a745;
+}
+
+.historyInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.historyTimestamp {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.historyResult {
+  font-weight: 600;
+}
+
+.historyFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+}
+
+.historyFeature {
+  font-size: 14px;
+}
+
+.historyActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.loadButton, .deleteButton {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.loadButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.loadButton:hover {
+  background-color: #0069d9;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.predictionPanel {
+  animation: fadeIn 0.5s;
+}
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #6c757d;
+  font-size: 14px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .historyFeatures {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .historyFeatures {
+    grid-template-columns: 1fr;
+  }
+  
+  .historyInfo {
     flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 15px;  /* Tăng margin bottom từ 10px lên 15px */
-    padding: 0 5px;  /* Thêm padding bên trái và phải */
-    box-sizing: border-box;  /* Đảm bảo padding không làm tăng kích thước tổng thể */
+    gap: 5px;
   }
   
-  .inputGroup label {
-    font-size: 14px;
-    color: #0d0324;
-    margin-bottom: 8px;
-    font-weight: 500;
-    width: 100%;  /* Đảm bảo label chiếm toàn bộ chiều rộng */
+  .buttonGroup {
+    flex-direction: column;
   }
-  
-  .inputGroup input {
-    width: 90%;  /* Giảm chiều rộng input xuống 90% */
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    font-size: 15px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-sizing: border-box;  /* Đảm bảo padding không làm tăng kích thước tổng thể */
-  }
-  
-  .inputGroup input:focus {
-    border-color: #4dabf7;
-    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
-    background-color: #ffffff;
-  }
-  
-  
-  /* Button Styling */
-  .button {
-    margin-top: 25px;
-    padding: 12px 28px;
-    background: linear-gradient(135deg, #0070f3, #0047ab);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-  }
-  
-  .button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.25);
-    background: linear-gradient(135deg, #005cd1, #003b8e);
-  }
-  
-  .button:active {
-    transform: translateY(1px);
-  }
-  
-  /* Results Area */
-  .result {
-    margin-top: 25px;
-    padding: 18px;
-    background-color: #fff;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 17px;
-    color: #2c3e50;
-    border-left: 4px solid #0070f3;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-  }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 600px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .container {
-      padding: 20px;
-      margin: 20px 15px;
-    }
-  }
-  
-  @media (max-width: 400px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
+}
