@@ -12,3 +12,5 @@ git pull origin main
 git merge master
 
 git checkout master
+
+git branch
