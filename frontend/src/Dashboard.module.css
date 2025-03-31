@@ -398,3 +398,30 @@
       width: 95%;
     }
   }
+
+  .exportButtons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .exportCsvButton, .exportPdfButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .exportPdfButton {
+    background-color: #d9534f;
+  }
+  
+  .exportCsvButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .exportPdfButton:hover {
+    background-color: #c9302c;
+  }
+  

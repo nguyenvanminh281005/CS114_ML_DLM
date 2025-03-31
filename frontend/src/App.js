@@ -5,6 +5,7 @@ import Dashboard from './Dashboard';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
+import ForgotPassword from './ForgotPassword'; // Import component mới
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Thêm route mới */}
           <Route 
             path="/dashboard" 
             element={

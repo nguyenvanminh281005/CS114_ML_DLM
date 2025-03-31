@@ -29,6 +29,34 @@
   text-decoration: underline;
 }
 
+.logoutButton {
+  background-color: #d9534f; /* Màu đỏ */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logoutButton:hover {
+  background-color: #c9302c; /* Đỏ đậm hơn khi hover */
+  text-decoration: none;
+}
+
+.backButton {
+  background-color: #007bff; /* Màu xanh */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.backButton:hover {
+  background-color: #001aff; /* Đỏ đậm hơn khi hover */
+  text-decoration: none;
+}
+
 .profileCard h1 {
   text-align: center;
   margin-bottom: 20px;

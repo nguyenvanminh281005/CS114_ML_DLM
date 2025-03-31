@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import styles from './Dashboard.module.css';
+import Papa from 'papaparse';
+import { jsPDF } from 'jspdf';
 
 function Dashboard() {
   const num = 8;
@@ -131,6 +133,58 @@ function Dashboard() {
     navigate('/profile');
   };
 
+  const exportToCSV = () => {
+    if (predictionHistory.length === 0) {
+      alert('No data to export!');
+      return;
+    }
+  
+    const csvData = predictionHistory.map(({ timestamp, features, prediction }) => ({
+      Timestamp: timestamp,
+      Prediction: prediction,
+      ...Object.fromEntries(features.map((val, idx) => [featureNames[idx] || `F${idx + 1}`, val])),
+    }));
+  
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'prediction_history.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  const exportToPDF = () => {
+    if (predictionHistory.length === 0) {
+      alert('No data to export!');
+      return;
+    }
+  
+    const doc = new jsPDF();
+    doc.setFontSize(14);
+    doc.text('Prediction History', 10, 10);
+  
+    let yOffset = 20;
+    predictionHistory.forEach(({ timestamp, features, prediction }, idx) => {
+      doc.text(`#${idx + 1} - ${timestamp}`, 10, yOffset);
+      doc.text(`Prediction: ${prediction}`, 10, yOffset + 7);
+  
+      features.forEach((value, featureIdx) => {
+        doc.text(`${featureNames[featureIdx] || `F${featureIdx + 1}`}: ${value}`, 10, yOffset + (featureIdx + 2) * 7);
+      });
+  
+      yOffset += (features.length + 3) * 7;
+      if (yOffset > 280) {
+        doc.addPage();
+        yOffset = 20;
+      }
+    });
+  
+    doc.save('prediction_history.pdf');
+  };
+
   return (
     <div className={styles.dashboardContainer}>
       <header className={styles.header}>
@@ -213,16 +267,21 @@ function Dashboard() {
         <div className={styles.historyPanel}>
           <div className={styles.historyHeader}>
             <h2>Your Prediction History</h2>
+            <div className={styles.exportButtons}>
+              <button className={styles.exportCsvButton} onClick={exportToCSV}>
+                Export CSV
+              </button>
+              <button className={styles.exportPdfButton} onClick={exportToPDF}>
+                Export PDF
+              </button>
+            </div>
             {predictionHistory.length > 0 && (
-              <button 
-                className={styles.clearButton} 
-                onClick={clearAllHistory}
-              >
+              <button className={styles.clearButton} onClick={clearAllHistory}>
                 Clear All
               </button>
             )}
           </div>
-          
+
           {predictionHistory.length === 0 ? (
             <div className={styles.emptyHistory}>
               <p>No prediction history available yet.</p>
@@ -268,10 +327,11 @@ function Dashboard() {
             </div>
           )}
         </div>
+        
       )}
-      
+
       <footer className={styles.footer}>
-        <p>© 2025 Parkinson's Disease Prediction Tool</p>
+        <p>© Nguyen Van Minh</p>
       </footer>
     </div>
   );
