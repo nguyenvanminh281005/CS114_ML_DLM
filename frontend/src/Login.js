@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import styles from './Auth.module.css';
-import { login } from './service/auth'; // Đảm bảo bạn đã tạo hàm login này trong services
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { login, mockLogin, error } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,19 +24,12 @@ function Login() {
     }
 
     try {
-      // Gọi API login từ backend Flask
-      const response = await login(email, password);
-
-      if (response.token) {
-        // Nếu đăng nhập thành công, chuyển hướng đến trang dashboard
-        alert("Login successful!");
-        navigate('/dashboard');
-      } else {
-        // Nếu đăng nhập thất bại, hiển thị thông báo lỗi
-        setErrorMsg(response.message || "Login failed!");
-      }
+      // Use mockLogin for development without backend
+      // Replace with login() when backend is ready
+      await mockLogin(email, password);
+      navigate('/dashboard');
     } catch (err) {
-      setErrorMsg('An error occurred. Please try again.');
+      setErrorMsg(error || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
