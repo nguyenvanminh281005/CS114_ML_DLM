@@ -11,6 +11,8 @@ git pull origin main
 
 git merge master
 
+git push -u origin main
+
 git checkout master
 
 git branch
