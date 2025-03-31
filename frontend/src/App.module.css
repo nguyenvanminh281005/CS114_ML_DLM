@@ -1,0 +1,146 @@
+/* Background Styling */
+body {
+    padding: 20px;
+    background-image: url('../public/background.jpg'); /* Đường dẫn tới ảnh của bạn */
+    background-size: cover; /* Làm cho ảnh phủ đầy màn hình */
+    background-position: center center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
+    height: 100vh; /* Đảm bảo background phủ toàn bộ chiều cao của trang */
+    margin: 0; /* Xóa margin mặc định */
+  }
+  
+  /* Main Container */
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: rgba(166, 206, 207, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Header Styles */
+  .container h2 {
+    color: #1b67b3;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+  }
+  
+  .container h2:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+  
+  /* Tăng khoảng cách trong grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;  /* Tăng gap từ 18px lên 25px */
+    margin: 25px auto;
+    max-width: 600px;  /* Tăng max-width để có thêm không gian */
+  }
+  
+/* Input Groups */
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;  /* Tăng margin bottom từ 10px lên 15px */
+    padding: 0 5px;  /* Thêm padding bên trái và phải */
+    box-sizing: border-box;  /* Đảm bảo padding không làm tăng kích thước tổng thể */
+  }
+  
+  .inputGroup label {
+    font-size: 14px;
+    color: #0d0324;
+    margin-bottom: 8px;
+    font-weight: 500;
+    width: 100%;  /* Đảm bảo label chiếm toàn bộ chiều rộng */
+  }
+  
+  .inputGroup input {
+    width: 90%;  /* Giảm chiều rộng input xuống 90% */
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;  /* Đảm bảo padding không làm tăng kích thước tổng thể */
+  }
+  
+  .inputGroup input:focus {
+    border-color: #4dabf7;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+    background-color: #ffffff;
+  }
+  
+  
+  /* Button Styling */
+  .button {
+    margin-top: 25px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #0070f3, #0047ab);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  }
+  
+  .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.25);
+    background: linear-gradient(135deg, #005cd1, #003b8e);
+  }
+  
+  .button:active {
+    transform: translateY(1px);
+  }
+  
+  /* Results Area */
+  .result {
+    margin-top: 25px;
+    padding: 18px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 17px;
+    color: #2c3e50;
+    border-left: 4px solid #0070f3;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .container {
+      padding: 20px;
+      margin: 20px 15px;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
