@@ -1,0 +1,148 @@
+.authContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 20px;
+  }
+  
+  .authCard {
+    width: 100%;
+    max-width: 450px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .authHeader {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .authHeader h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  
+  .authHeader p {
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .formGroup label {
+    font-weight: 600;
+    color: #444;
+    font-size: 14px;
+  }
+  
+  .input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+  }
+  
+  .input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  }
+  
+  .forgotPassword {
+    text-align: right;
+    margin-top: -10px;
+  }
+  
+  .forgotPassword a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .forgotPassword a:hover {
+    text-decoration: underline;
+  }
+  
+  .authButton {
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .authButton:hover {
+    background-color: #0069d9;
+  }
+  
+  .authButton:disabled {
+    background-color: #74b1fa;
+    cursor: not-allowed;
+  }
+  
+  .authFooter {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  
+  .authFooter p {
+    color: #666;
+    font-size: 15px;
+  }
+  
+  .authFooter a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .authFooter a:hover {
+    text-decoration: underline;
+  }
+  
+  .errorMessage {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 480px) {
+    .authCard {
+      padding: 20px;
+    }
+    
+    .authHeader h2 {
+      font-size: 24px;
+    }
+    
+    .input, .authButton {
+      padding: 10px;
+    }
+  }
