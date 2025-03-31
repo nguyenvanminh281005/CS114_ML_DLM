@@ -1,0 +1,325 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 15px;
+}
+
+.header h1 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tab, .activeTab {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tab {
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+.activeTab {
+  background-color: #007bff;
+  color: white;
+}
+
+.instructions {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.predictButton, .resetButton {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.predictButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.predictButton:hover {
+  background-color: #0069d9;
+}
+
+.predictButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.resetButton {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.resetButton:hover {
+  background-color: #e2e6ea;
+}
+
+.resultBox {
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s;
+}
+
+.positive {
+  background-color: #ffecec;
+  border-left: 5px solid #dc3545;
+}
+
+.negative {
+  background-color: #ecffec;
+  border-left: 5px solid #28a745;
+}
+
+.resultText {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.resultDescription {
+  color: #555;
+  font-size: 16px;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* History Panel Styles */
+.historyPanel {
+  animation: fadeIn 0.5s;
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.clearButton {
+  padding: 8px 15px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clearButton:hover {
+  background-color: #e2e6ea;
+}
+
+.emptyHistory {
+  text-align: center;
+  color: #6c757d;
+  padding: 40px 0;
+  border: 2px dashed #dee2e6;
+  border-radius: 10px;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.historyItem {
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s;
+}
+
+.historyPositive {
+  background-color: #ffecec;
+  border-left: 5px solid #dc3545;
+}
+
+.historyNegative {
+  background-color: #ecffec;
+  border-left: 5px solid #28a745;
+}
+
+.historyInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.historyTimestamp {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.historyResult {
+  font-weight: 600;
+}
+
+.historyFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+}
+
+.historyFeature {
+  font-size: 14px;
+}
+
+.historyActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.loadButton, .deleteButton {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.loadButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.loadButton:hover {
+  background-color: #0069d9;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.predictionPanel {
+  animation: fadeIn 0.5s;
+}
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  color: #6c757d;
+  font-size: 14px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .historyFeatures {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .historyFeatures {
+    grid-template-columns: 1fr;
+  }
+  
+  .historyInfo {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+  }
+}
