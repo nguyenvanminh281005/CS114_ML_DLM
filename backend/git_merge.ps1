@@ -1,5 +1,5 @@
 # cach merge tu dong
-git check out master
+git checkout master
 
 git add .
 
