@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await axios.post('http://127.0.0.1:5000/auth/login', {
-        identifier: email,
+        email: email,
         password
       });
   

@@ -24,6 +24,7 @@ function Login() {
 
     try {
         console.log("🔍 Gửi request đăng nhập...");
+        console.log("🔍 Dữ liệu gửi đi:", { email, password });
         // Thay đổi: Sử dụng hàm login từ AuthContext
         const userData = await login(email, password);
         console.log("📌 Đăng nhập thành công:", userData);

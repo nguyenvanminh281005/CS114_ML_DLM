@@ -57,26 +57,31 @@ def register():
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
+    print("📥 Received data:", data)  # Debugging
 
-    # Validate input
-    if not all(k in data for k in ('username', 'password')):
+    if not data:
+        return jsonify({'error': 'Không nhận được dữ liệu'}), 400  # Nếu request không có data
+
+    # Validate input (chấp nhận cả email và username)
+    if not all(k in data for k in ('password',)):
         return jsonify({'error': 'Thiếu thông tin đăng nhập'}), 400
 
-    users = load_users()
+    username = data.get('username') or data.get('email')  # Lấy username hoặc email
+    if not username:
+        return jsonify({'error': 'Thiếu username hoặc email'}), 400
 
-    # Tìm user theo username hoặc email
-    user = users.get(data['username']) or next((u for u in users.values() if u["email"] == data['username']), None)
+    users = load_users()
+    user = users.get(username) or next((u for u in users.values() if u["email"] == username), None)
 
     if not user or not check_password_hash(user['password'], data['password']):
         return jsonify({'error': 'Tên đăng nhập hoặc mật khẩu không đúng'}), 401
 
-    # Generate token
-    token = generate_token(data['username'])
+    token = generate_token(username)
 
     return jsonify({
         'message': 'Đăng nhập thành công',
         'token': token,
-        'username': data['username']
+        'username': username
     }), 200
 
 
@@ -178,3 +183,56 @@ def debug_users():
     users = load_users()
     print("📜 Debug users:", users)
     return jsonify(users)
+
+@auth_bp.route('/update-profile', methods=['PUT'])
+def update_profile():
+    auth_header = request.headers.get('Authorization')
+    
+    if not auth_header or not auth_header.startswith('Bearer '):
+        return jsonify({'error': 'Token không hợp lệ'}), 401
+
+    token = auth_header.split(' ')[1]
+    username = decode_token(token)
+
+    if isinstance(username, str) and "Vui lòng đăng nhập lại" in username:
+        return jsonify({'error': username}), 401
+
+    users = load_users()
+    
+    if username not in users:
+        return jsonify({'error': 'Người dùng không tồn tại'}), 404
+
+    data = request.get_json()
+    
+    # Cập nhật thông tin (chỉ cập nhật nếu có trong request)
+    users[username]['email'] = data.get('email', users[username]['email'])
+    if 'password' in data:
+        users[username]['password'] = generate_password_hash(data['password'])
+
+    save_users(users)
+
+    return jsonify({'message': 'Cập nhật hồ sơ thành công'}), 200
+
+@auth_bp.route('/delete-account', methods=['DELETE'])
+def delete_account():
+    auth_header = request.headers.get('Authorization')
+    
+    if not auth_header or not auth_header.startswith('Bearer '):
+        return jsonify({'error': 'Token không hợp lệ'}), 401
+
+    token = auth_header.split(' ')[1]
+    username = decode_token(token)
+
+    if isinstance(username, str) and "Vui lòng đăng nhập lại" in username:
+        return jsonify({'error': username}), 401
+
+    users = load_users()
+
+    if username not in users:
+        return jsonify({'error': 'Người dùng không tồn tại'}), 404
+
+    # Xóa tài khoản khỏi danh sách
+    del users[username]
+    save_users(users)
+
+    return jsonify({'message': 'Tài khoản đã bị xóa'}), 200
