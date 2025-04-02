@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
-import ForgotPassword from './ForgotPassword'; // Import component mới
+import ForgotPassword from './ForgotPassword';
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {

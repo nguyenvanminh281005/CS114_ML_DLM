@@ -17,33 +17,44 @@ function Register() {
     e.preventDefault();
     setErrorMsg('');
     setIsLoading(true);
-
-    // Validate form
-    if (!name || !email || !password || !confirmPassword) {
-      setErrorMsg('Please fill in all fields.');
-      setIsLoading(false);
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setErrorMsg('Passwords do not match.');
-      setIsLoading(false);
-      return;
-    }
-
-    if (password.length < 6) {
-      setErrorMsg('Password must be at least 6 characters long.');
-      setIsLoading(false);
-      return;
-    }
-
+  
     try {
-      // Use mockRegister for development without backend
-      // Replace with register() when backend is ready
-      await mockRegister(name, email, password);
+      // Validate form fields
+      if (!name || !email || !password || !confirmPassword) {
+        setErrorMsg('Thiếu thông tin đăng ký');
+        setIsLoading(false);
+        return;
+      }
+  
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        setErrorMsg('Email không hợp lệ');
+        setIsLoading(false);
+        return;
+      }
+  
+      if (password !== confirmPassword) {
+        setErrorMsg('Mật khẩu không khớp');
+        setIsLoading(false);
+        return;
+      }
+  
+      if (password.length < 6) {
+        setErrorMsg('Mật khẩu phải có ít nhất 6 ký tự');
+        setIsLoading(false);
+        return;
+      }
+  
+      console.log('Đang gửi request đăng ký...');
+      
+      // Sử dụng hàm register từ AuthContext thay vì tự gửi request
+      const userData = await register(name, email, password);
+      console.log('Đăng ký thành công:', userData);
+  
+      // Chuyển hướng đến trang dashboard
       navigate('/dashboard');
     } catch (err) {
-      setErrorMsg(error || 'Registration failed. Please try again.');
+      console.error('Lỗi:', err);
+      setErrorMsg(err.message || error);
     } finally {
       setIsLoading(false);
     }

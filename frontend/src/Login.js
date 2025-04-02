@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login, mockLogin, error } = useAuth();
+  const { login, error } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,22 +16,25 @@ function Login() {
     setErrorMsg('');
     setIsLoading(true);
 
-    // Validate form
     if (!email || !password) {
-      setErrorMsg('Please fill in all fields.');
-      setIsLoading(false);
-      return;
+        setErrorMsg('Please fill in all fields.');
+        setIsLoading(false);
+        return;
     }
 
     try {
-      // Use mockLogin for development without backend
-      // Replace with login() when backend is ready
-      await mockLogin(email, password);
-      navigate('/dashboard');
+        console.log("🔍 Gửi request đăng nhập...");
+        // Thay đổi: Sử dụng hàm login từ AuthContext
+        const userData = await login(email, password);
+        console.log("📌 Đăng nhập thành công:", userData);
+        
+        // Chuyển hướng đến dashboard sau khi đăng nhập thành công
+        navigate('/dashboard');
     } catch (err) {
-      setErrorMsg(error || 'Login failed. Please try again.');
+        console.error("❌ Lỗi đăng nhập:", err);
+        setErrorMsg(err.message || error || 'Login failed. Please try again.');
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
 

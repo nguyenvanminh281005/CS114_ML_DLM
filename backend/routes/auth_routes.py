@@ -6,6 +6,7 @@ from utils.auth_ultils import (
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import mail
 from flask_mail import Message
+import re
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -13,20 +14,27 @@ auth_bp = Blueprint('auth', __name__)
 def register():
     data = request.get_json()
     
-    # Validate input
+    # Validate input fields
     if not all(k in data for k in ('username', 'email', 'password')):
         return jsonify({'error': 'Thiếu thông tin đăng ký'}), 400
     
-    users = load_users()
+    # Kiểm tra định dạng email hợp lệ
+    if not re.match(r"^\S+@\S+\.\S+$", data['email']):
+        return jsonify({'error': 'Email không hợp lệ'}), 400
     
-    # Check if user already exists
+    # Kiểm tra độ dài mật khẩu
+    if len(data['password']) < 6:
+        return jsonify({'error': 'Mật khẩu phải có ít nhất 6 ký tự'}), 400
+    
+    users = load_users() or {}  # Đảm bảo users luôn là dict
+    
+    # Check if username already exists
     if data['username'] in users:
         return jsonify({'error': 'Tên đăng nhập đã tồn tại'}), 400
     
     # Check if email already exists
-    for user in users.values():
-        if user['email'] == data['email']:
-            return jsonify({'error': 'Email đã được sử dụng'}), 400
+    if any(user.get('email') == data['email'] for user in users.values()):
+        return jsonify({'error': 'Email đã được sử dụng'}), 400
     
     # Create new user
     users[data['username']] = {
@@ -34,9 +42,10 @@ def register():
         'password': generate_password_hash(data['password'])
     }
     
+    print("📌 Dữ liệu users trước khi lưu:", users)  # Debug
     save_users(users)
     
-    # Generate token
+    # Generate authentication token
     token = generate_token(data['username'])
     
     return jsonify({
@@ -48,31 +57,28 @@ def register():
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    
+
     # Validate input
     if not all(k in data for k in ('username', 'password')):
         return jsonify({'error': 'Thiếu thông tin đăng nhập'}), 400
-    
+
     users = load_users()
-    
-    # Check if user exists
-    if data['username'] not in users:
+
+    # Tìm user theo username hoặc email
+    user = users.get(data['username']) or next((u for u in users.values() if u["email"] == data['username']), None)
+
+    if not user or not check_password_hash(user['password'], data['password']):
         return jsonify({'error': 'Tên đăng nhập hoặc mật khẩu không đúng'}), 401
-    
-    user = users[data['username']]
-    
-    # Check password
-    if not check_password_hash(user['password'], data['password']):
-        return jsonify({'error': 'Tên đăng nhập hoặc mật khẩu không đúng'}), 401
-    
+
     # Generate token
     token = generate_token(data['username'])
-    
+
     return jsonify({
         'message': 'Đăng nhập thành công',
         'token': token,
         'username': data['username']
     }), 200
+
 
 @auth_bp.route('/forgot-password', methods=['POST'])
 def forgot_password():
@@ -166,3 +172,9 @@ def get_user_profile():
         'username': username,
         'email': user['email']
     }), 200
+    
+@auth_bp.route('/debug-users', methods=['GET'])
+def debug_users():
+    users = load_users()
+    print("📜 Debug users:", users)
+    return jsonify(users)

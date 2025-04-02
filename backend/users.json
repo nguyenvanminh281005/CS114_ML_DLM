@@ -1,0 +1,18 @@
+{
+    "admin": {
+        "email": "admin@example.com",
+        "password": "hashed_password"
+    },
+    "testuser": {
+        "email": "test@example.com",
+        "password": "scrypt:32768:8:1$ZBvC6VZS1qDwVTSs$46303135d7e09c01a8ccebc4d957f56e00bf41dc9c574ecc74f94382555371564e1e3ff0e1d4814371432149f48790dd56754c795246eda2bbfc1ba7701e140f"
+    },
+    "vming": {
+        "email": "nguyenvanminh281005@gmail.com",
+        "password": "scrypt:32768:8:1$sfcZcYfQOKw19Vt0$c892779a5ce4581c54cfb964b0fcbceb9ca302f3d6afd4e67bc5b120873e1e0b1291792f48d3a25a5d3e40f9d2a48b2f101c12ceaa08b13b55554e8dea817c3b"
+    },
+    "tesy": {
+        "email": "vming@gmail.com",
+        "password": "scrypt:32768:8:1$CvJhXEaGXHPMRgBE$6ab80afa33782e465a1a829908ab1e1565f279bc882abd4ecb9f4589972c63335f8abe8efc1e7b6cfc6017741a724b91da61ad0b10b06fd0e3a9dae8c9d761dc"
+    }
+}

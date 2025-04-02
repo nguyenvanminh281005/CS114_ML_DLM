@@ -1,3 +1,3 @@
 conda activate GPU
 
-nvidia-smi
+python ./backend/app.py
