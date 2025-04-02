@@ -21,3 +21,6 @@ cách set up:
 - win + X mở cmd với quyền admin lên 
 - tiếp theo tạo file tên là git-auto-push.ps1 trong folder nào đó 
 tiếp theo chạy lệnh terminal là ./backend/git-auto-push.ps1 chỗ này thay bằng đường dẫn (hệ ralative nha)
+
+cách cài đặt môi trường mới bằng conda 
+conda create -n <name> python=<version>
