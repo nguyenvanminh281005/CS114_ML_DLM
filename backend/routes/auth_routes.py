@@ -6,23 +6,14 @@ from utils.auth_ultils import (
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Message
 import re
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import os
 from datetime import datetime
 from extensions import mail
-
 auth_bp = Blueprint('auth', __name__)
 
-# Áp dụng CORS riêng cho blueprint này
-CORS(auth_bp, origins=["http://localhost:3000"], supports_credentials=True, 
-     allow_headers=["Content-Type", "Authorization"])
-
-@auth_bp.route('/register', methods=['POST', 'OPTIONS'])
-@cross_origin()
+@auth_bp.route('/register', methods=['POST'])
 def register():
-    if request.method == 'OPTIONS':
-        return jsonify(success=True), 200
-        
     data = request.get_json()
     
     # Validate input fields
@@ -65,12 +56,8 @@ def register():
         'username': data['username']
     }), 201
 
-@auth_bp.route('/login', methods=['POST', 'OPTIONS'])
-@cross_origin()
+@auth_bp.route('/login', methods=['POST'])
 def login():
-    if request.method == 'OPTIONS':
-        return jsonify(success=True), 200
-        
     data = request.get_json()
     print("📥 Received data:", data)  # Debugging
 
@@ -251,6 +238,7 @@ def delete_account():
     save_users(users)
 
     return jsonify({'message': 'Tài khoản đã bị xóa'}), 200
+
 
 # Hàm tạo nội dung email HTML
 def generate_email_html(doctor_name, message, prediction_results):
