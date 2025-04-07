@@ -24,3 +24,33 @@ tiếp theo chạy lệnh terminal là ./backend/git-auto-push.ps1 chỗ này th
 
 cách cài đặt môi trường mới bằng conda 
 conda create -n <name> python=<version>
+
+cách check nvidia-smi theo thời gian nè 
+
+nvidia-smi -l 1 (1 là số giây mỗi lần lặp)
+
+
+đây là cách kiểm tra CPU 
+
+wmic cpu get loadpercentage
+
+hoặc vòng lặp 
+
+while ($true) {
+    Clear-Host
+    Get-Counter '\Processor(_Total)\% Processor Time'
+    Start-Sleep -Seconds 2 (2 là số giây mỗi lần lặp)
+}
+
+
+này là lặp nma đẹp hơn nè 
+
+typeperf "\Processor(_Total)\% Processor Time"
+
+đây là cách log ra file
+
+typeperf "\Processor(_Total)\% Processor Time" -si 1 -sc 60 > cpu_log.csv
+
+si là số giây lặp 1 lần
+
+sc là số lần lặp được ghi nhận lại rồi sau đó nó tự end
