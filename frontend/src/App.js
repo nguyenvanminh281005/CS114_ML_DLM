@@ -6,6 +6,8 @@ import Login from './Login';
 import Register from './Register';
 import Profile from './Profile';
 import ForgotPassword from './ForgotPassword';
+import About from './About';
+import Home from './Home'; // Import component Home mới
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -27,9 +29,11 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path="/home" element={<Home />} /> {/* Thêm route cho trang Home */}
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Thêm route mới */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route 
             path="/dashboard" 
             element={
@@ -46,7 +50,7 @@ function App() {
               </ProtectedRoute>
             } 
           />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/home" />} /> {/* Điều hướng mặc định tới /home thay vì /dashboard */}
         </Routes>
       </Router>
     </AuthProvider>

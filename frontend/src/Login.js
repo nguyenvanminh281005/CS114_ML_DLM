@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import styles from './Auth.module.css';
 
-function Login() {
+function Login({ onClose }) { // Nhận onClose prop để đóng popup
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -29,8 +29,11 @@ function Login() {
         const userData = await login(email, password);
         console.log("📌 Đăng nhập thành công:", userData);
         
+        // Đóng popup sau khi đăng nhập thành công
+        if (onClose) onClose();
+
         // Chuyển hướng đến dashboard sau khi đăng nhập thành công
-        navigate('/dashboard');
+        navigate('/home');
     } catch (err) {
         console.error("❌ Lỗi đăng nhập:", err);
         setErrorMsg(err.message || error || 'Login failed. Please try again.');

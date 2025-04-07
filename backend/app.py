@@ -7,22 +7,35 @@ import joblib
 import os
 import warnings
 
-# Import các module
+# Sau đó mới import các routes
 from config import Config
 from routes.auth_routes import auth_bp
 from routes.prediction_routes import prediction_bp
+# Bỏ dòng import mail từ extensions vì chúng ta sẽ khởi tạo trực tiếp
+
+# Import extensions trước
 from extensions import mail
 
+
+
 app = Flask(__name__)
-CORS(app)
 
-# Load cấu hình
-app.config.from_object(Config)
+CORS(app, origins=["http://localhost:3000"], supports_credentials=True, 
+     allow_headers=["Content-Type", "Authorization"])
 
-# Khởi tạo extensions
+# Cấu hình Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = '23520945@gm.uit.edu.vn'
+app.config['MAIL_PASSWORD'] = 'dwbi kvpp swki gbvh'
+app.config['MAIL_DEFAULT_SENDER'] = '23520945@gm.uit.edu.vn'
+app.config['FRONTEND_URL'] = 'http://localhost:3000'
+
+# Khởi tạo mail với app
 mail.init_app(app)
 
-best_model = '/model/best_model_w_grid.pkl'
+best_model = '/model/parkinsons_xgboost_model.pkl'
 
 # Định nghĩa đường dẫn model
 # MODEL_PATH = 'E:/KHTN2023/CS114/CS114_ML_DLM/CS114_ML_DLM/backend/model/best_model_w_grid.pkl'
@@ -53,4 +66,8 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(prediction_bp)
 
 if __name__ == '__main__':
+    # In ra thông tin mail để debug
+    print(f"Mail username: {app.config['MAIL_USERNAME']}")
+    print(f"Mail default sender: {app.config['MAIL_DEFAULT_SENDER']}")
+    
     app.run(host='0.0.0.0', port=5000, debug=True)

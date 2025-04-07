@@ -1,0 +1,65 @@
+/* src/components/Tooltip/Tooltip.module.css */
+
+.tooltip-parent {
+    position: relative;
+  }
+  
+  .tooltip-icon {
+    cursor: pointer;
+    margin-left: 5px;
+    display: inline-flex;
+    color: #6b7280;
+    transition: color 0.2s;
+  }
+  
+  .tooltip-icon:hover {
+    color: #4b5563;
+  }
+  
+  .tooltip-container {
+    position: absolute;
+    z-index: 100;
+    width: 250px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .tooltip-container.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .tooltip-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #111827;
+  }
+  
+  .tooltip-content {
+    color: #4b5563;
+    line-height: 1.5;
+  }
+  
+  /* Dark mode styles */
+  .dark-mode .tooltip-container {
+    background: #1f2937;
+    border-color: #374151;
+  }
+  
+  .dark-mode .tooltip-title {
+    color: #f3f4f6;
+  }
+  
+  .dark-mode .tooltip-content {
+    color: #d1d5db;
+  }

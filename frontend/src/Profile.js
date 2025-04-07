@@ -13,7 +13,7 @@ function Profile() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleGoBack = () => navigate('/dashboard');
-  const handleLogout = () => { logout(); navigate('/login'); };
+  const handleLogout = () => { logout(); navigate('/home'); };
   
   const handleEditToggle = () => {
     if (isEditing) saveChanges();
@@ -40,7 +40,7 @@ function Profile() {
       localStorage.removeItem('parkinsonsAppUser');
       localStorage.removeItem(`predictionHistory_${currentUser.id}`);
       logout();
-      navigate('/login');
+      navigate('/home');
     }
   };
 
