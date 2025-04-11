@@ -9,10 +9,10 @@ class Config:
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')  # Không hardcode email
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')  # Không hardcode password
-    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER', MAIL_USERNAME)
-
+    MAIL_USERNAME = '23520945@gm.uit.edu.vn'  # Giá trị trực tiếp
+    MAIL_PASSWORD = 'dwbi kvpp swki gbvh'     # Giá trị trực tiếp
+    MAIL_DEFAULT_SENDER = '23520945@gm.uit.edu.vn'
+    
     # Cấu hình database
     USER_DB_FILE = 'users.json'
 

@@ -51,7 +51,7 @@ function Register() {
       console.log('Đăng ký thành công:', userData);
   
       // Chuyển hướng đến trang dashboard
-      navigate('/dashboard');
+      navigate('/home');
     } catch (err) {
       console.error('Lỗi:', err);
       setErrorMsg(err.message || error);

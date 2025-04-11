@@ -5,6 +5,8 @@ import { useAuth } from './AuthContext';
 import styles from './Dashboard.module.css';
 import Papa from 'papaparse';
 import { jsPDF } from 'jspdf';
+import EmailSharingFeature from './EmailSharingFeature';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const num = 8;
@@ -126,7 +128,7 @@ function Dashboard() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/home');
   };
 
   const navigateToProfile = () => {
@@ -185,12 +187,48 @@ function Dashboard() {
     doc.save('prediction_history.pdf');
   };
 
+  // Chuẩn bị dữ liệu cho tính năng chia sẻ email
+  const getCurrentPredictionData = () => {
+    return {
+      prediction: result,
+      features: features,
+      featureNames: featureNames,
+      timestamp: new Date().toLocaleString(),
+      userId: currentUser?.id || 'Unknown'
+    };
+  };
+
   return (
+
+
+    <>
+
+    <nav className={styles.navBar}>
+        <div className={styles.container}>
+          <div className={styles.navContent}>
+            <Link to="/" className={styles.navButton}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Trang chủ</span>
+            </Link>
+            <Link to="/dashboard" className={styles.navButton}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+              <span>Dự đoán</span>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
     <div className={styles.dashboardContainer}>
       <header className={styles.header}>
         <h1>Parkinson's Disease Prediction</h1>
         <div className={styles.userSection}>
-          <span>Welcome, {currentUser.name}</span>
+          <span>Welcome, {currentUser.email}</span>
           <div className={styles.userMenu}>
             <button className={styles.profileButton} onClick={navigateToProfile}>Profile</button>
             <button className={styles.logoutButton} onClick={handleLogout}>Log Out</button>
@@ -262,6 +300,9 @@ function Dashboard() {
               </p>
             </div>
           )}
+          
+          {/* Component chia sẻ kết quả với bác sĩ */}
+          {result && <EmailSharingFeature predictionData={getCurrentPredictionData()} />}
         </div>
       ) : (
         <div className={styles.historyPanel}>
@@ -321,19 +362,29 @@ function Dashboard() {
                     >
                       Delete
                     </button>
+                    {/* Thêm nút chia sẻ trực tiếp từ lịch sử */}
+                    <button 
+                      className={styles.shareButton} 
+                      onClick={() => {
+                        loadFromHistory(item);
+                        setShowHistory(false);
+                      }}
+                    >
+                      Share
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           )}
         </div>
-        
       )}
 
       <footer className={styles.footer}>
-        <p>© Nguyen Van Minh</p>
+        <p>&copy; Nguyen Van Minh</p>
       </footer>
     </div>
+    </>
   );
 }
 
