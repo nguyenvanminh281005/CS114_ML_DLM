@@ -34,7 +34,7 @@ app.config['FRONTEND_URL'] = 'http://localhost:3000'
 # Khởi tạo mail với app
 mail.init_app(app)
 
-best_model = '/model/parkinsons_xgboost_model.pkl'
+best_model = '/model/best_model_w_grid.pkl'
 
 # Định nghĩa đường dẫn model
 # MODEL_PATH = 'E:/KHTN2023/CS114/CS114_ML_DLM/CS114_ML_DLM/backend/model/best_model_w_grid.pkl'
