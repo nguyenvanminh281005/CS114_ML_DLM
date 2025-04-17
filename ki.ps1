@@ -1,7 +1,11 @@
-fnm use 16
+# fnm use 16
 
-cd frontend
+# cd frontend
 
-npm run build
+# npm run build
 
-cd ..
+# cd ..
+
+npm install -g serve
+
+serve -s build
