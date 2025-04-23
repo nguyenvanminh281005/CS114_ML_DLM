@@ -1,4 +1,4 @@
-# cach merge tu dong  ./backend/git_merge.ps1
+# cach merge tu dong  ./gp.ps1
 git checkout master
 
 git add .
