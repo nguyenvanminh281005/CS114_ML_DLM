@@ -1,3 +1,11 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.preprocessing import StandardScaler
+from xgboost import XGBClassifier
+
 import numpy as np
 from sklearn.datasets import make_classification
 
@@ -110,40 +118,45 @@ class XGBoostClassifier:
             y_pred += self.lr * np.array([predict_tree(x, tree) for x in X])
         prob = sigmoid(y_pred)
         return np.vstack([1 - prob, prob]).T
-    
-#Thử chạy
 
-import numpy as np
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-import matplotlib.pyplot as plt
+df = pd.read_csv("D:\Document\\University\CS114\CS114_ML_DLM\data\\alzheimer_done.csv")
 
-X, y = make_classification(
-    n_samples=300,
-    n_features=15,
-    n_informative=10,
-    n_redundant=5,
-    n_classes=2,
-    random_state=42
-)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X = df.drop(columns=["Diagnosis"])
+y = df["Diagnosis"]
 
-model = XGBoostClassifier(n_estimators=10, max_depth=9, learning_rate=0.016730402817820244, lam=1.3289448722869181e-05, gamma=3.540362888980227, alpha=6.598711072054068)
-model.fit(X_train, y_train)
 
-# 3. Dự đoán
-y_pred = model.predict(X_test)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
 
-acc = np.mean(y_pred == y_test)
-print(f"Accuracy scratch: {acc:.4f}")
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, stratify=y, random_state=42)
 
-import xgboost
+print(y_test.value_counts())
 
-xgb = xgboost.XGBClassifier(n_estimators=10, max_depth=9, learning_rate=0.016730402817820244, reg_lambda=1.3289448722869181e-05, gamma=3.540362888980227, reg_alpha=6.598711072054068)
-xgb.fit(X_train, y_train)
-y_pred_xgb = xgb.predict(X_test)
-mse_xgb = mean_squared_error(y_test, y_pred_xgb)
 
-acc = np.mean(y_pred_xgb == y_test)
-print(f"Accuracy xgboost: {acc:.4f}")
+my_xgb = XGBoostClassifier(n_estimators=10, max_depth=9, learning_rate=0.16730402817820244, lam=1.3289448722869181e-05, gamma=3.540362888980227, alpha=6.598711072054068)
+my_xgb.fit(X_train, y_train)
+y_pred_my = my_xgb.predict(X_test)
+
+
+lib_model = XGBClassifier(n_estimators=10, max_depth=9, learning_rate=0.16730402817820244, reg_lambda=1.3289448722869181e-05, gamma=3.540362888980227, reg_alpha=6.598711072054068)
+
+lib_model.fit(X_train, y_train)
+y_pred_lib = lib_model.predict(X_test)
+
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+
+cm1 = confusion_matrix(y_test, y_pred_my)
+disp1 = ConfusionMatrixDisplay(confusion_matrix=cm1, display_labels=["Healthy", "Diagnosis"])
+disp1.plot(ax=axs[0], values_format=".0f")
+print("Accuracy scratch:", accuracy_score(y_test, y_pred_my))
+
+cm2 = confusion_matrix(y_test, y_pred_lib)
+disp2 = ConfusionMatrixDisplay(confusion_matrix=cm2, display_labels=["Healthy", "Diagnosis"])
+disp2.plot(ax=axs[1], values_format=".0f")
+print("Accuracy library:", accuracy_score(y_test, y_pred_lib))
+
+axs[0].set_title("Custom XGBoost")
+axs[1].set_title("Library XGBoost")
+
+plt.tight_layout()
+plt.show()
